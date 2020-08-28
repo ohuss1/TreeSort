@@ -1,0 +1,38 @@
+﻿<html>
+<head>
+
+</head>
+<body>
+<canvas height="500" width="500" id="ctx" style="border: 4px solid #cc6e6e;">
+	
+</canvas>
+<button onclick="myFunction()">Click to Enter Values</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+  var numArg = prompt("Please enter the numbers you want to sort", " ");
+  var numArr=numArg.split(" ");
+  if (numArg != null) {
+    document.getElementById("demo").innerHTML=numArg;
+  }
+}
+</script>
+<script type="text/javascript">
+var c = document.getElementById("ctx");
+var ctx = c.getContext("2d");
+var canHeight=500;
+
+drawNode=function (x,y,size) {
+	// body...
+	ctx.save();
+	ctx.beginPath();
+	ctx.arc(x, y, size, 0, 2 * Math.PI);
+//x,y,startangle,end angle
+	ctx.fill();
+}
+</script>
+
+</body>
+</html>
