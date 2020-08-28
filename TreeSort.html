@@ -35,10 +35,12 @@ var c = document.getElementById("ctx");
 var ctx = c.getContext("2d");
 var canHeight=500;
 var userIn="";
+var numArr="";//array of string numbers
 saveUserInput=function () {
 	// body...
 	userIn=document.getElementById("uname").value;
 	document.getElementById("demo").innerHTML=userIn;
+	numArr=userIn.split(" ");
 }
 
 
