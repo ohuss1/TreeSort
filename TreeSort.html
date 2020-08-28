@@ -31,23 +31,31 @@
     document.getElementById("demo").innerHTML=numArg;
   }
 }*/
+var c = document.getElementById("ctx");
+var ctx = c.getContext("2d");
+var canHeight=500;
 var userIn="";
 saveUserInput=function () {
 	// body...
 	userIn=document.getElementById("uname").value;
 	document.getElementById("demo").innerHTML=userIn;
 }
-var c = document.getElementById("ctx");
-var ctx = c.getContext("2d");
-var canHeight=500;
 
-drawNode=function (x,y,size) {
+
+drawNode=function (x,y,size,nodeNum) {
 	// body...
 	ctx.save();
+	ctx.fillStyle="red";
 	ctx.beginPath();
 	ctx.arc(x, y, size, 0, 2 * Math.PI);
 //x,y,startangle,end angle
 	ctx.fill();
+	ctx.restore();
+	ctx.save();
+    ctx.font = "15px Comic Sans MS";
+    ctx.fillStyle = "black";
+    ctx.fillText(nodeNum, x-5, y+5);
+    ctx.restore();
 }
 </script>
 
