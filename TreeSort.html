@@ -6,20 +6,37 @@
 <canvas height="500" width="500" id="ctx" style="border: 4px solid #cc6e6e;">
 	
 </canvas>
-<button onclick="myFunction()">Click to Enter Values</button>
 
 <p id="demo"></p>
 
-<script>
-function myFunction() {
+
+<form>
+  <div>
+    <label for="uname">Please Type the numbers up to 10 to sort separated by space: </label>
+    <input type="text" id="uname" name="name" required size="20" maxlength="22" 
+           pattern="([0-9]+\s+){0,9}[0-9.]{0,9}">
+    <!-- <span class="validity"></span> -->
+    <!-- <p>Usernames must be lowercase and 0-9 characters in length.</p> -->
+  </div>
+  <div>
+    <button type="button" onclick="saveUserInput()">Submit</button>
+  </div>
+</form>
+<script type="text/javascript">
+	
+/*function myFunction() {
   var numArg = prompt("Please enter the numbers you want to sort", " ");
   var numArr=numArg.split(" ");
   if (numArg != null) {
     document.getElementById("demo").innerHTML=numArg;
   }
+}*/
+var userIn="";
+saveUserInput=function () {
+	// body...
+	userIn=document.getElementById("uname").value;
+	document.getElementById("demo").innerHTML=userIn;
 }
-</script>
-<script type="text/javascript">
 var c = document.getElementById("ctx");
 var ctx = c.getContext("2d");
 var canHeight=500;
