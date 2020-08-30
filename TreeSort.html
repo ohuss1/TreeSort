@@ -19,7 +19,8 @@
     <!-- <p>Usernames must be lowercase and 0-9 characters in length.</p> -->
   </div>
   <div>
-    <button type="button" onclick="saveUserInput()">Submit</button>
+    <button type="button" onclick="saveUserInput();">Step1</button>
+    <button type="button" onclick="createNodesArray();">Step2</button>
   </div>
 </form>
 <script type="text/javascript">
@@ -36,11 +37,13 @@ var ctx = c.getContext("2d");
 var canHeight=500;
 var userIn="";
 var numArr="";//array of string numbers
+var NodesArray="";
 saveUserInput=function () {
 	// body...
 	userIn=document.getElementById("uname").value;
 	document.getElementById("demo").innerHTML=userIn;
 	numArr=userIn.split(" ");
+	NodesArray=userIn.split(" ");
 	//converting the string to integer
 	for (var i = 0; i < numArr.length; i++) {
 		numArr[i]=parseInt(numArr[i]);
@@ -71,8 +74,11 @@ class Node {
 
 //draw function will be called for each element of array...so basically loop through array and draw and fill tree at same time
 
+createNodesArray=function () {
+	// body...
+
 //Below is our array of nodes ie tree
-var NodesArray=new Array(numArr.length);//must happen after submission of numbers
+//must happen after submission of numbers
 for (var i = 0; i < numArr.length; i++) {
 	
 	myNode=new Node();
@@ -80,6 +86,14 @@ for (var i = 0; i < numArr.length; i++) {
 	NodesArray[i]=myNode;
 
 }
+}
+//
+
+//Now after every thing has happened we loop through array and draw and change tree
+for (var i = 0; i < numArr.length; i++) {
+	
+}
+
 //
 drawNode=function (x,y,depth,right,left,nodeVal) {
 	// body...
