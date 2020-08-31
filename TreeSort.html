@@ -13,7 +13,7 @@
 <form>
   <div>
     <label for="uname">Please Type the numbers up to 10 to sort separated by space: </label>
-    <input type="text" id="uname" name="name" required size="20" maxlength="22" 
+    <input type="text" id="uname" name="name" required size="20" maxlength="29" 
            pattern="([0-9]+\s+){0,9}[0-9.]{0,9}">
     <!-- <span class="validity"></span> -->
     <!-- <p>Usernames must be lowercase and 0-9 characters in length.</p> -->
@@ -38,6 +38,8 @@ var canHeight=500;
 var userIn="";
 var numArr="";//array of string numbers
 var NodesArray="";
+var counter=0;//for the tree traversal
+var currNode=0;
 saveUserInput=function () {
 	// body...
 	userIn=document.getElementById("uname").value;
@@ -59,10 +61,10 @@ saveUserInput=function () {
 class Node {
   constructor(value,parentNode,rightChild,leftChild,nodeID,depth,xdrawn,ydrawn) {
     this.value = null;
-    this.parentNode=null;
-    this.rightChild=null;
-    this.leftChild=null;
-    this.nodeID=null;
+    this.parentNode=null;//is an integer nodeid
+    this.rightChild=null;//is an integer nodeid
+    this.leftChild=null;//is an integer nodeid
+    this.nodeID=null;//simply position in array.using it to identify nodes
     this.depth=undefined;
   }
 }
@@ -73,7 +75,7 @@ class Node {
 //Can use only draw but how to track depth array only has number so must have a tree object that i will keep updating to track depth
 
 //draw function will be called for each element of array...so basically loop through array and draw and fill tree at same time
-
+//1-
 createNodesArray=function () {
 	// body...
 
@@ -83,18 +85,16 @@ for (var i = 0; i < numArr.length; i++) {
 	
 	myNode=new Node();
 	myNode.nodeID=i;
+	myNode.value=numArr[i];
 	NodesArray[i]=myNode;
 
 }
+//currNode=new Node();//this shall be used for tree traversal
+currNode=0;//this is nodeid 0 will use it for traversal of tree.
 }
 //
 
-//Now after every thing has happened we loop through array and draw and change tree
-for (var i = 0; i < numArr.length; i++) {
-	
-}
 
-//
 drawNode=function (x,y,depth,right,left,nodeVal) {
 	// body...
 	ctx.save();
@@ -110,14 +110,64 @@ drawNode=function (x,y,depth,right,left,nodeVal) {
     ctx.fillText(nodeVal, x-5, y+5);
     ctx.restore();
 }
-//2-Lets loop array
+//2-Lets loop array//must happen after step 2 so can use a trigger for this like putting in start function
 for (var i = 0; i < numArr.length; i++) {
+	currNode=NodesArray[0].nodeID;//will update later just preset value. to traverse tree
 	if((i)==0){
-		rootNode.value=numArr[i];
-		rootNode.depth=0;
+		NodesArray[0].value=numArr[i];
+		NodesArray[0].depth=0;
+		NodesArray[0].parent=null;
+		NodesArray[0].rightChild=null;
+		NodesArray[0].leftChild=null;
+		console.log(NodesArray[i].value,NodesArray[currNode].value);
+		
 	}
+	else if(((numArr[i]>=numArr[0]) && (NodesArray[0].rightChild===null))||((numArr[i]<numArr[0]) && (NodesArray[0].leftChild===null))){
+	if((numArr[i]>=numArr[0]) && (NodesArray[0].rightChild===null)){
+		NodesArray[0].rightChild=NodesArray[i].nodeID;
+		NodesArray[i].parent=NodesArray[0].nodeID;
+		console.log(NodesArray[i].value,NodesArray[currNode].value);
+	}
+	if((NodesArray[i].value<numArr[0]) && (NodesArray[0].leftChild===null)){
+		NodesArray[0].leftChild=NodesArray[i].nodeID;
+		NodesArray[i].parent=NodesArray[0].nodeID;
+		console.log(NodesArray[i].value,NodesArray[currNode].value);
+	}
+	} 
 	else{
-
+	//Check if this numArr[i] is greater or less then NodesArray[counter] and keep going deeper keep checking until reach child null
+	//keep changing the current node to child node to go deeper
+	//NEED TO CHANGE CURRENT NODE WAS NODE THEN BECAME NODEID int
+	while(currNode!=null){
+	if(numArr[i]<NodesArray[currNode].value){
+	if(NodesArray[currNode].leftChild===null){
+	NodesArray[currNode].leftChild=NodesArray[i].nodeID;//set left child of currNode to the ith NodesArray element
+	NodesArray[i].parent=NodesArray[currNode];//making parent of the node we inserted to point at currNode
+	currNode=null;//to end while loop
+	console.log(NodesArray[i].value,"null");
+	}
+	else if(NodesArray[currNode].leftChild!=null){
+	currNode=NodesArray[currNode].leftChild;
+	console.log(NodesArray[i].value,NodesArray[currNode].value);
+	}
+	
+	}
+	else if(numArr[i]>=NodesArray[currNode].value){
+	if(NodesArray[currNode].rightChild===null){
+	NodesArray[currNode].rightChild=NodesArray[i].nodeID;//set right child of currNode to the ith NodesArray element
+	//need to set parent this node to curr node
+	NodesArray[i].parent=NodesArray[currNode];
+	currNode=null;//to end while loop
+	console.log(NodesArray[i].value,"null");
+	}
+	else if(NodesArray[currNode].rightChild!=null){
+	currNode=NodesArray[currNode].rightChild;
+	console.log(NodesArray[i].value,NodesArray[currNode].value);
+	}
+	}
+	}
+	//have reached the spot where we put our node
+	//NodesArray[currNode.parent]
 	}
 }
 </script>
