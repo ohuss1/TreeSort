@@ -111,6 +111,7 @@ drawNode=function (x,y,depth,right,left,nodeVal) {
     ctx.restore();
 }
 //2-Lets loop array//must happen after step 2 so can use a trigger for this like putting in start function
+//Below is BST algorithm
 for (var i = 0; i < numArr.length; i++) {
 	currNode=NodesArray[0].nodeID;//will update later just preset value. to traverse tree
 	if((i)==0){
@@ -119,6 +120,8 @@ for (var i = 0; i < numArr.length; i++) {
 		NodesArray[0].parent=null;
 		NodesArray[0].rightChild=null;
 		NodesArray[0].leftChild=null;
+		NodesArray[0].xdrawn=250;//for others just based on parent change need at least a difference of 35
+		NodesArray[0].ydrawn=90;
 		console.log(NodesArray[i].value,NodesArray[currNode].value);
 		
 	}
@@ -126,11 +129,15 @@ for (var i = 0; i < numArr.length; i++) {
 	if((numArr[i]>=numArr[0]) && (NodesArray[0].rightChild===null)){
 		NodesArray[0].rightChild=NodesArray[i].nodeID;
 		NodesArray[i].parent=NodesArray[0].nodeID;
+		NodesArray[i].xdrawn=NodesArray[0].xdrawn+35;//setting coordinates of right child of root
+		NodesArray[i].ydrawn=NodesArray[0].ydrawn+35;
 		console.log(NodesArray[i].value,NodesArray[currNode].value);
 	}
 	if((NodesArray[i].value<numArr[0]) && (NodesArray[0].leftChild===null)){
 		NodesArray[0].leftChild=NodesArray[i].nodeID;
 		NodesArray[i].parent=NodesArray[0].nodeID;
+		NodesArray[i].xdrawn=NodesArray[0].xdrawn-35;//setting coordinates of left child of root
+		NodesArray[i].ydrawn=NodesArray[0].ydrawn+35;
 		console.log(NodesArray[i].value,NodesArray[currNode].value);
 	}
 	} 
@@ -142,6 +149,8 @@ for (var i = 0; i < numArr.length; i++) {
 	if(numArr[i]<NodesArray[currNode].value){
 	if(NodesArray[currNode].leftChild===null){
 	NodesArray[currNode].leftChild=NodesArray[i].nodeID;//set left child of currNode to the ith NodesArray element
+	NodesArray[i].xdrawn=NodesArray[currNode].xdrawn-35;//setting x coordinates of the node inserted based on corrdinates of parent
+	NodesArray[i].ydrawn=NodesArray[currNode].ydrawn+35;//setting y coordinates of the node inserted based on corrdinates of parent
 	NodesArray[i].parent=NodesArray[currNode];//making parent of the node we inserted to point at currNode
 	currNode=null;//to end while loop
 	console.log(NodesArray[i].value,"null");
@@ -155,6 +164,8 @@ for (var i = 0; i < numArr.length; i++) {
 	else if(numArr[i]>=NodesArray[currNode].value){
 	if(NodesArray[currNode].rightChild===null){
 	NodesArray[currNode].rightChild=NodesArray[i].nodeID;//set right child of currNode to the ith NodesArray element
+	NodesArray[i].xdrawn=NodesArray[currNode].xdrawn+35;//setting x coordinates of the node inserted based on corrdinates of parent
+	NodesArray[i].ydrawn=NodesArray[currNode].ydrawn+35;//setting y coordinates of the node inserted based on corrdinates of parent
 	//need to set parent this node to curr node
 	NodesArray[i].parent=NodesArray[currNode];
 	currNode=null;//to end while loop
