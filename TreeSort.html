@@ -3,16 +3,16 @@
 
 </head>
 <body>
-<canvas height="500" width="500" id="ctx" style="border: 4px solid #cc6e6e;">
+<canvas height="600" width="600" id="ctx" style="border: 4px solid #cc6e6e;">
 	
 </canvas>
 
 <p id="demo"></p>
 
-
+<h4 id="twice"></h4>
 <form>
   <div>
-    <label for="uname">Please Type the numbers up to 10 to sort separated by space: </label>
+    <label for="uname">Step 0 Please Type the numbers(not letters) up to 10 to sort separated by space: </label>
     <input type="text" id="uname" name="name" required size="20" maxlength="29" 
            pattern="([0-9]+\s+){0,9}[0-9.]{0,9}">
     <!-- <span class="validity"></span> -->
@@ -20,9 +20,11 @@
   </div>
   <div>
     <button type="button" onclick="saveUserInput();">Step1</button>
-    <button type="button" onclick="createNodesArray();">Step2</button>
+    <!-- <button type="button" onclick="createNodesArray();">Step2</button> -->
+    <button type="button" onclick="mainfunction();">Step2</button>
   </div>
 </form>
+
 <script type="text/javascript">
 	
 /*function myFunction() {
@@ -40,6 +42,9 @@ var numArr="";//array of string numbers
 var NodesArray="";
 var counter=0;//for the tree traversal
 var currNode=0;
+var drawLoopCounter=0;
+var pressed1=false;
+var pressed2=false;
 saveUserInput=function () {
 	// body...
 	userIn=document.getElementById("uname").value;
@@ -112,7 +117,9 @@ drawNode=function (x,y,depth,right,left,nodeVal) {
 }
 //2-Lets loop array//must happen after step 2 so can use a trigger for this like putting in start function
 //Below is BST algorithm
-for (var i = 0; i < numArr.length; i++) {
+document.on
+BST=function () {
+	for (var i = 0; i < numArr.length; i++) {
 	currNode=NodesArray[0].nodeID;//will update later just preset value. to traverse tree
 	if((i)==0){
 		NodesArray[0].value=numArr[i];
@@ -181,6 +188,36 @@ for (var i = 0; i < numArr.length; i++) {
 	//NodesArray[currNode.parent]
 	}
 }
+
+//3-Below we draw our BST tree NEED to trigger as event or put whole thing inside a mainfunction
+// for (var i = 0; i < NodesArray.length; i++) {
+// 	drawNode(NodesArray[i].xdrawn,NodesArray[i].ydrawn,null,null,null,numArr[i]);
+// }
+var intervalId = setInterval(function(){
+   if(drawLoopCounter == NodesArray.length-1){
+   	console.log("clearing");
+   	clearInterval(intervalId);
+   }
+   console.log(drawLoopCounter);
+   drawNode(NodesArray[drawLoopCounter].xdrawn,NodesArray[drawLoopCounter].ydrawn,null,null,null,numArr[drawLoopCounter]);
+   
+   drawLoopCounter++;
+}, 900);
+	// body...
+}
+mainfunction=function() {
+	if(pressed2==false){
+		pressed2=true;
+		createNodesArray();
+		BST();
+	}
+	else{
+		document.getElementById("twice").innerHTML="Please refresh page and start over if you want to test new Nodes(Please dont press buttons twice)";
+	}
+	
+}
+//4-create BST and treesort functions and call BST functions and treeSort functions in a function called startGame. Startgame 
+//should be triggerred by an event
 </script>
 
 </body>
