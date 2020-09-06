@@ -36,7 +36,7 @@
 }*/
 var c = document.getElementById("ctx");
 var ctx = c.getContext("2d");
-var canHeight=500;
+var canHeight=600;
 var userIn="";
 var numArr="";//array of string numbers
 var NodesArray="";
@@ -157,7 +157,7 @@ BST=function () {
 		NodesArray[0].parent=null;
 		NodesArray[0].rightChild=null;
 		NodesArray[0].leftChild=null;
-		NodesArray[0].xdrawn=250;//for others just based on parent change need at least a difference of 35
+		NodesArray[0].xdrawn=canHeight/2;//for others just based on parent change need at least a difference of 35
 		NodesArray[0].ydrawn=90;
 		console.log(NodesArray[i].value,NodesArray[currNode].value);
 		
