@@ -101,6 +101,7 @@ var InOrderTraversalSlot="";//will be used to store the slot numbers of NodeArra
 
 
 var InOrderTraversalCounter=0;//will be used to count what node from unsortedNum array to replace with sorted number
+var InOrderCounter2=0;//will be used by InOrderTraversalSlot in the InOrderTraversal function
 saveUserInput=function () {
 	// body...
 	pressed1=true;
@@ -114,7 +115,7 @@ saveUserInput=function () {
 	for (var i = 0; i < numArr.length; i++) {
 		numArr[i]=parseInt(numArr[i]);
 		unsortedNum[i]=parseInt(unsortedNum[i]);//just in case cant store numbers in this array of string
-		InOrderTraversalSlot=parseInt(unsortedNum[i]);;
+		InOrderTraversalSlot[i]=parseInt(unsortedNum[i]);;
 	}
 
 }
@@ -316,8 +317,9 @@ InOrderTraversal=function(NodeA){
 		//Finding the node which has value (eg:x) may not work with the above slow mo approach so just incase I will
 		//store the slot numbers from NodeArray in order of traversal as well as the sorted numbers
 		//setTimeout(console.log("val i"+NodeA.value+" "+NodeA.), 3000);
-		console.log("Node Traversed:"+ NodeA.value);
-		InOrderTraversalSlot[InOrderTraversalCounter]=NodeA.nodeID;//storing the nodeID in order of the traversal
+		console.log("Node Traversed:"+ NodeA.value+"NodesID"+NodeA.nodeID+"counter: "+InOrderCounter2);
+		InOrderTraversalSlot[InOrderCounter2]=NodeA.nodeID;//storing the nodeID in order of the traversal
+		InOrderCounter2++;
 		InOrderTraversal(NodesArray[(NodeA.leftChild)]);
 
 		unsortedNum[InOrderTraversalCounter]=NodeA.value;//storing sorted results in array
