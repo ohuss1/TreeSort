@@ -93,9 +93,8 @@ var drawLoopCounter=0;
 var pressed1=false;
 var pressed2=false;
 var nodeDistance=35;
-var unsortedNum="";//x coordinates of each number from unsorted list displayed on canvas at the bottom will be used to highlight
-//the current element that is being sorted
-var drawUnsortedCounter=0;
+var unsortedNum="";//will be used to store the sorted stuff from inOrderTraversal
+var InOrderTraversalCounter=0;//will be used to count what node from unsortedNum array to replace with sorted number
 saveUserInput=function () {
 	// body...
 	pressed1=true;
@@ -303,12 +302,15 @@ var intervalId = setInterval(function(){
 }
 InOrderTraversal=function(NodeA){
 	if (NodeA!=null||NodeA!=undefined) {
+		//I shall store sorted numbers in an array first then loop through this array in slow mo and change each table element
+		//and point at the current tree node //since using setTimeout in recursion caused problems
 		InOrderTraversal(NodesArray[(NodeA.leftChild)]);
-		console.log("The node value is:"+NodeA.value);
+
+		unsortedNum[InOrderTraversalCounter]=NodeA.value;//storing sorted results in
+		InOrderTraversalCounter++;
+
 		InOrderTraversal(NodesArray[(NodeA.rightChild)]);
 	}
-
-
 }
 mainfunction=function() {
 	if((pressed2==false)&&(pressed1==true)){
