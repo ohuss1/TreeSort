@@ -94,8 +94,12 @@ var pressed1=false;
 var pressed2=false;
 var nodeDistance=35;
 var unsortedNum="";//will be used to store the sorted numbers from inOrderTraversal
-var InOrderTraversalSlot="";//will be used to store the slot numbers of NodeArray in increasing order(sorted) to help
-//us draw the current node 
+var InOrderTraversalSlot="";//will be used to store the slot numbers of NodeArray that were traversed to help
+//us draw the current node
+//we will traverse this array and the tree (by drawing) until ith node of the sorted number reached,then we will change value in 
+//table
+
+
 var InOrderTraversalCounter=0;//will be used to count what node from unsortedNum array to replace with sorted number
 saveUserInput=function () {
 	// body...
@@ -105,10 +109,12 @@ saveUserInput=function () {
 	numArr=userIn.split(" ");
 	unsortedNum=userIn.split(" ");
 	NodesArray=userIn.split(" ");
+	InOrderTraversalSlot=userIn.split(" ");//to set same size as nodes
 	//converting the string to integer
 	for (var i = 0; i < numArr.length; i++) {
 		numArr[i]=parseInt(numArr[i]);
 		unsortedNum[i]=parseInt(unsortedNum[i]);//just in case cant store numbers in this array of string
+		InOrderTraversalSlot=parseInt(unsortedNum[i]);;
 	}
 
 }
@@ -307,9 +313,11 @@ InOrderTraversal=function(NodeA){
 		//I shall store sorted numbers in an array first then loop through this array in slow mo and change each table element
 		//and highlight at the current tree node //since using setTimeout in recursion caused problems
 		
-		//Finding the node which has value x may not work with the above slow mo approach so just incase I will
-		//store the slot numbers from NodeArray as well as the value
-		setTimeout(console.log("val i"+NodeA.value), 3000);
+		//Finding the node which has value (eg:x) may not work with the above slow mo approach so just incase I will
+		//store the slot numbers from NodeArray in order of traversal as well as the sorted numbers
+		//setTimeout(console.log("val i"+NodeA.value+" "+NodeA.), 3000);
+		console.log("Node Traversed:"+ NodeA.value);
+		InOrderTraversalSlot[InOrderTraversalCounter]=NodeA.nodeID;//storing the nodeID in order of the traversal
 		InOrderTraversal(NodesArray[(NodeA.leftChild)]);
 
 		unsortedNum[InOrderTraversalCounter]=NodeA.value;//storing sorted results in array
