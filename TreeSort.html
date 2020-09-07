@@ -93,7 +93,9 @@ var drawLoopCounter=0;
 var pressed1=false;
 var pressed2=false;
 var nodeDistance=35;
-var unsortedNum="";//will be used to store the sorted stuff from inOrderTraversal
+var unsortedNum="";//will be used to store the sorted numbers from inOrderTraversal
+var InOrderTraversalSlot="";//will be used to store the slot numbers of NodeArray in increasing order(sorted) to help
+//us draw the current node 
 var InOrderTraversalCounter=0;//will be used to count what node from unsortedNum array to replace with sorted number
 saveUserInput=function () {
 	// body...
@@ -303,10 +305,14 @@ var intervalId = setInterval(function(){
 InOrderTraversal=function(NodeA){
 	if (NodeA!=null||NodeA!=undefined) {
 		//I shall store sorted numbers in an array first then loop through this array in slow mo and change each table element
-		//and point at the current tree node //since using setTimeout in recursion caused problems
+		//and highlight at the current tree node //since using setTimeout in recursion caused problems
+		
+		//Finding the node which has value x may not work with the above slow mo approach so just incase I will
+		//store the slot numbers from NodeArray as well as the value
+		setTimeout(console.log("val i"+NodeA.value), 3000);
 		InOrderTraversal(NodesArray[(NodeA.leftChild)]);
 
-		unsortedNum[InOrderTraversalCounter]=NodeA.value;//storing sorted results in
+		unsortedNum[InOrderTraversalCounter]=NodeA.value;//storing sorted results in array
 		InOrderTraversalCounter++;
 
 		InOrderTraversal(NodesArray[(NodeA.rightChild)]);
