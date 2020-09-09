@@ -206,11 +206,19 @@ drawNode=function (x,y,depth,right,left,nodeVal) {
     ctx.fillText(nodeVal, x-5, y+5);
     ctx.restore();
 }
-drawCurrentElement=function () {
+// drawCurrentElement=function () {//to draw rectangle on table UNused function
+// 	//x will be unsortedNum[i]
+// 	ctx.beginPath();
+// 	ctx.strokeStyle="red";
+// 	ctx.rect(x, 550, 30, 30);
+// 	ctx.stroke();
+// 	// body...
+// }
+drawCurrentElement=function (NodeB) {//to draw rectangle on table UNused function
 	//x will be unsortedNum[i]
 	ctx.beginPath();
 	ctx.strokeStyle="red";
-	ctx.rect(x, 550, 30, 30);
+	ctx.rect(NodeB.xdrawn-15, NodeB.ydrawn-15, 40, 40);
 	ctx.stroke();
 	// body...
 }
@@ -292,7 +300,7 @@ BST=function () {
 // for (var i = 0; i < NodesArray.length; i++) {
 // 	drawNode(NodesArray[i].xdrawn,NodesArray[i].ydrawn,null,null,null,numArr[i]);
 // }
-var intervalId = setInterval(function(){
+var intervalId = setInterval(function(){//responsible for drawing the tree using helpers THIS IS INSIDE BST which is called in mainfunction
    if(drawLoopCounter == NodesArray.length-1){
    	console.log("clearing");
    	clearInterval(intervalId);
@@ -326,6 +334,27 @@ InOrderTraversal=function(NodeA){
 		InOrderTraversalCounter++;
 
 		InOrderTraversal(NodesArray[(NodeA.rightChild)]);
+	}
+}
+InOrderTraversalStackVersion=function(NodeB){//NodeB shall be root Node when function called
+	//our "stack" shall be an empty array (in javascript size doesnt need to be defined)
+	var stack=[];
+	while((stack.length!=0)||NodeB!=null){
+		if(NodeB!=null){
+			stack.push(NodeB);
+			console.log("Current Node"+NodeB.value);
+			drawCurrentElement(NodeB);
+			NodeB=NodesArray[NodeB.leftChild];//ie we keep going left until leftchild null
+		}
+		else{
+			//left child is null so wanna return to root//by popping thelast stored element we return to its root the non null
+			// in the stack
+			//after visiting root wanna visit its right child so we push right child on to stack
+			NodeB=stack.pop();
+			console.log("Smalles One "+NodeB.value);
+			NodeB=NodesArray[NodeB.rightChild];//if this is null then again pop will come into action
+
+		}
 	}
 }
 mainfunction=function() {
